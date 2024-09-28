@@ -27,8 +27,6 @@ y_predicted = poly_reg_model.predict(poly_features)
 coef = poly_reg_model.coef_
 intercept = poly_reg_model.intercept_
 
-print(f"{coef}")
-
 # error medio cuadratico
 mse = mean_squared_error(y, y_predicted)
 
@@ -44,7 +42,7 @@ props = dict(boxstyle='round', facecolor='lightblue', edgecolor='black', alpha=0
 
 # coeficientes y mse
 plt.text(0.5, 0.1,
-         f'Ecuación: y = {coef[1]:.2f}x² + {coef[0]:.2f}x + {intercept:.2f}\nMSE: {mse:.2f}',
+         f'Ecuación: y = {coef[1]:.2}x² + {coef[0]:.2}x + {intercept:.2}\nMSE: {mse:.2}',
          fontsize=12, transform=plt.gca().transAxes,
          bbox=props)
 
