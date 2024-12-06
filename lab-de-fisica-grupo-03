@@ -1,0 +1,57 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+m = 17.60
+d = 0.18
+r = d / 2
+A = np.pi * r**2
+rho = 1.225
+g = 9.81
+Cd = 0.47
+v0 = 18.0
+theta =         #Profesor, aca debe colocar el angulo de elevacion
+theta_rad = np.radians(theta)
+
+vx = v0 * np.cos(theta_rad)
+vy = v0 * np.sin(theta_rad)
+x = 0
+y = 0
+dt = 0.01
+t = 0
+
+x_vals = [x]
+y_vals = [y]
+
+def drag_force(vx, vy):
+    v = np.sqrt(vx*2 + vy*2)
+    return 0.5 * Cd * rho * A * v**2
+
+while y >= 0:
+    Fd = drag_force(vx, vy)
+    Fdx = Fd * (vx / np.sqrt(vx*2 + vy*2))
+    Fdy = Fd * (vy / np.sqrt(vx*2 + vy*2))
+    
+    ax = -Fdx / m
+    ay = -g - Fdy / m
+    
+    vx += ax * dt
+    vy += ay * dt
+    
+    x += vx * dt
+    y += vy * dt
+    
+    x_vals.append(x)
+    y_vals.append(y)
+    t += dt
+
+plt.figure(figsize=(10, 6))
+plt.plot(x_vals, y_vals, label='Trayectoria')
+plt.title('')
+plt.xlabel('Distancia horizontal (m)')
+plt.ylabel('Altura (m)')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+alcance = x_vals[-1]
+print(f"El alcance horizontal es: {alcance:.2f} metros")
